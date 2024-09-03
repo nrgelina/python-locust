@@ -6,7 +6,9 @@ This repository includes the necessary files and scripts to conduct performance 
 
 This repository contains test script for Locust to generate load for task queue processing service.
 Locust doc: https://docs.locust.io/en/stable/index.html
-Test script is here: task_queue_processing_locustfile.py
+
+[Locust Test Script](task_queue_processing_locustfile.py)
+
 
 Steps to run test:
 1. Make sure Python 3 is installed (python3 -V). Locust is supported on Python 3.9 or later. 

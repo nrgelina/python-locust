@@ -39,6 +39,8 @@ The service exposes three API endpoints over the HTTP protocol:
 - `GET /tasks/submissions/{id}`: Returns the current status of the submitted task.
 - `GET /tasks/{id}`: Returns the final result of the submitted task when it completes. The task is considered completed when it has transitioned into a `SUCCEEDED` or `FAILED` status.
 
+More detailed service description and API documentation can be found in the [README.md](task-queue-processing-service/README.md) file.
+
 ---
 
 ## Performance Test Goal
@@ -54,15 +56,15 @@ The goal of this exercise is to run a black box performance test against the pro
 
 ## Performance Test Strategy
 
-This task involves performing non-functional performance testing of the service. The functionality and accuracy of the service responses are not tested.
+This task involves performing non-functional performance testing of the service. The functionality and accuracy of the service responses are out of testing scope.
 
 ---
 
 ## Tool
 
-I’ve selected the Locust tool (see Locust documentation) for performing this task. It allows you to create a test scenario as a Python script, has a demonstrative web interface, and is easy to manage. Locust can monitor metrics such as RPS, Response Time (average, median, 90th percentile), and CPU usage. However, for more complex systems, I would likely use other tools that allow monitoring additional metrics.
+I have selected the Locust tool (see Locust documentation) for performing this task. It allows you to create a test scenario as a Python script, has a demonstrative web interface, and is easy to manage. Locust can monitor metrics such as RPS, Response Time (average, median, 90th percentile), and CPU usage. However, for more complex systems, I would likely use other tools that allow monitoring additional metrics.
 
-The test script is located in the GitHub repository. The README file contains the test description and a guide on how to run the test.
+The test script is located in the GitHub repository. The [README.md](README.md) file contains the test description and a guide on how to run the test.
 
 ---
 
@@ -155,10 +157,6 @@ I’ve added the test results to an aggregated table:
 
 Based on the performance testing results, I would say the optimal service throughput is 40-50 RPS, which can be achieved with 80-100 concurrent users. More details are provided below.
 
-1. **Statistics table with metrics counted in Locust Web UI.**
-2. **RPS graph**
-3. **Response Time graph**
-
 ---
 
 ## Interesting Cases
@@ -198,12 +196,18 @@ Based on the performance testing results, here are the answers to the goal quest
 - **Stress testing result:**
   - When the load is extremely increased (e.g., from 80 to 200 users), the following errors occur:
     - Created tasks are queued and receive a `FAILED` status if the load persists.
-    - New tasks are not created – a 503 status code is returned in the response.
+    - New tasks are not created and 503 status code is returned in the response.
 
 ---
 
 ## Future Performance Testing Plan
 
-1. **Endurance testing:** Check how the service handles constant load (approximately 60% of average load in production or the maximum defined load in staging) over a long period (usually 2-3 days of continuous running).
+1. **Endurance testing:** Check how the service handles constant load (approximately 60% of average load in production or the maximum defined load in staging) over a long period (at least 24 hours of continuous running).
 2. **Scalability testing:** Validate the service's capability to scale up or down in response to the number of user requests or other performance attributes. This can be conducted at a hardware level (by using a more powerful machine) or a software level (with code optimization).
 3. **Failover testing:** Validate whether the system can allocate extra resources and shift operations to backup systems during a server failure.
+
+---
+
+### Additional Notes
+
+Detailed test report with graphs and charts can be found in the [Performance Testing Report](resources/performance-testing-report.pdf).
